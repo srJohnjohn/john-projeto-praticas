@@ -25,8 +25,10 @@ public class FuncionarioServece {
     private AtendimentoService as;
     
     public void add(Funcionario fun){
-        if(cr.buscarPorNome(fun.getNome()) == null){
-            cr.add(fun);
+        if((cr.buscarPorNome(fun.getNome()) == null)){
+            if((fun.getSenha() != null) || (!fun.getSenha().equals(""))){
+                cr.add(fun);
+            }
         }
     }
     

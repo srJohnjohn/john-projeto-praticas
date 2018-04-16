@@ -26,7 +26,7 @@
                             <f:selectItems value="#{funcionarioController.logado.servicos}"/>
                         </h:selectOneMenu>
                         <h:outputText id="inputData" value="dia do Atendimento"/><h:inputText value="#{funcionarioController.ate.dia}">
-                            <f:converter converterId="conversoData" for="inputData"/>
+                            <f:converter converterId="conversorData" for="inputData"/>
                         </h:inputText>
                         <h:outputText value="inicio do Atendimento"/><h:inputText value="#{funcionarioController.ate.inicio}">
                             <f:converter converterId="conversorTime" for="inputTime"/>
@@ -52,7 +52,7 @@
                     <h1>Marca Horario de Atendimento</h1>
                     <h:form>
                         <h:outputText value="Dia dos Atendimentos"/><h:inputText value="#{funcionarioController.ha.dia}">
-                            <f:converter converterId="conversoData" for="inputData"/>
+                            <f:converter converterId="conversorData" for="inputData"/>
                         </h:inputText>
                         <h:outputText value="Inicio do Horario"/><h:inputText value="#{funcionarioController.ha.chegada}">
                             <f:converter converterId="conversorTime" for="inputTime"/>

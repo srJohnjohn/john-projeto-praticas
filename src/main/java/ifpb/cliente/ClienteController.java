@@ -18,8 +18,10 @@ import java.util.ArrayList;
 import java.util.List;
 import javax.annotation.PostConstruct;
 import javax.enterprise.context.SessionScoped;
+import javax.faces.context.FacesContext;
 import javax.inject.Inject;
 import javax.inject.Named;
+import javax.servlet.http.HttpSession;
 
 /**
  *
@@ -151,16 +153,26 @@ public class ClienteController implements Serializable{
         this.logado = logado;
     }
     
-    public void Cadastrar(){
+    public void cadastrar(){
         cs.add(cliente);
     }
     
     public String logar(){
-        if(cs.logar(cliente)){
-            this.logado = this.cliente;
-            return "home";
+        if(this.cliente.getNome() != null){
+            this.logado = cs.buscarPorNome(this.cliente.getNome());
+            if((this.logado != null) && (this.cliente.getSenha().equals(this.logado.getSenha()))){
+                HttpSession sessao = (HttpSession) FacesContext.getCurrentInstance().getExternalContext().getSession(true);
+                sessao.setAttribute("cliente", cliente);
+                return "homecliente.xhtml?faces-redirect=true";
+            }
         }
-        return "index";
+        return "indexcliente.xhtml?faces-redirect=true";
+    }
+    
+    public String logout(){
+        this.logado = new Cliente();
+        FacesContext.getCurrentInstance().getExternalContext().invalidateSession();
+        return "indexcliente.xhtml?faces-redirect=true";
     }
     
     public void proxFuns(){
@@ -171,15 +183,6 @@ public class ClienteController implements Serializable{
     public void anteFuns(){
         this.dia = dia.minusDays(1);
         this.has = cs.HAFuncionarios(dia, fs);
-    }
-    
-    @PostConstruct
-    public void inicio(){
-        this.dia = LocalDate.now();
-        funcionarios = new ArrayList<>();
-        servicos = new ArrayList<>();
-        this.has = new ArrayList<>();
-        fun = new Funcionario();
     }
     
     public void proxFun(){
@@ -204,6 +207,17 @@ public class ClienteController implements Serializable{
     public void desmarcar(long ate){
         Atendimento a = as.buscarId(ate);
         as.remove(a);
+    }
+    
+    @PostConstruct
+    public void inicio(){
+        cliente = new Cliente();
+        logado = new Cliente();
+        this.dia = LocalDate.now();
+        funcionarios = new ArrayList<>();
+        servicos = new ArrayList<>();
+        this.has = new ArrayList<>();
+        fun = new Funcionario();
     }
     
 }

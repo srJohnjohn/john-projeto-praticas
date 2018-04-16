@@ -23,6 +23,14 @@ public class AtendimentoService implements Serializable{
     private AtendimentoRepository ar;
     
     public void add(Atendimento ate){
+        List<Atendimento> atendimentos = this.list();
+        for (Atendimento atendimento : atendimentos) {
+            if(ate.getDia().equals(atendimento.getDia())){
+                if((!ate.getInicio().isAfter(atendimento.getInicio().plusMinutes(atendimento.getSev().getDuracao().getMinute()))) || (!ate.getInicio().isBefore(atendimento.getInicio()))){
+                    return;
+                }
+            }
+        }
         ar.add(ate);
     }
     

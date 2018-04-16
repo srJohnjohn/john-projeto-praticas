@@ -14,7 +14,7 @@
                         <h:form>
                             <h:outputText value="#{atendimentos.sev}"/>
                             <h:outputText id="inputData" value="#{atendimentos.dia}">
-                                <f:converter converterId="conversoData" for="inputData"/>
+                                <f:converter converterId="conversorData" for="inputData"/>
                             </h:outputText>
                             <h:outputText id="inputTime" value="#{atendimentos.inicio}">
                                 <f:converter converterId="conversorTime" for="inputTime"/>
@@ -28,7 +28,7 @@
                     <h:form>
                         <h1>Marcar Atendimento</h1>
                         <h:outputText value="Dia"/><h:inputText id="inputData" value="#{clienteController.ate.dia}">
-                            <f:converter converterId="conversoData" for="inputData"/>
+                            <f:converter converterId="conversorData" for="inputData"/>
                         </h:inputText>
                         <h:outputText value="Servico Desejado"/><h:selectOneMenu value="#{clienteController.ate.sev}">
                             <f:selectItems value="#{clienteController.ate.fun.servicos}"/>
@@ -49,8 +49,8 @@
                 <section>
                     <h1>Horarios disponiveis do Funcionario</h1>
                     <h:form>
-                        <h:commandButton action="#{clienteController.anteFun()}" value="<" />
-                        <h:commandButton action="#{clienteController.proxFun()}" value=">" />
+                        <h:commandButton action="#{clienteController.anteFun()}" value="Anterior" />
+                        <h:commandButton action="#{clienteController.proxFun()}" value="Proximo" />
                         <h:outputText value="#{clienteController.haf.chegada}">
                             <f:converter converterId="conversorTime" for="inputTime"/>
                         </h:outputText>
@@ -62,8 +62,8 @@
                 <section>
                     <h:form>
                         <h1>Horarios disponiveis de todos os Funcionarios</h1>
-                        <h:commandButton action="#{clienteController.anteFuns()}" value="<" />
-                        <h:commandButton action="#{clienteController.proxFuns()}" value=">" />
+                        <h:commandButton action="#{clienteController.anteFuns()}" value="Anterior" />
+                        <h:commandButton action="#{clienteController.proxFuns()}" value="Proximo" />
                         <h:dataTable value="#{clienteController.has}" var="horarios">
                             <h:outputText value="#{horarios.fun.nome}"/>
                             <h:outputText value="#{horarios.chegada}">

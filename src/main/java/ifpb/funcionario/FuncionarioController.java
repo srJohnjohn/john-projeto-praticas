@@ -13,9 +13,12 @@ import ifpb.servico.Servico;
 import ifpb.servico.ServicoService;
 import ifpb.horarioatendimento.HorarioAtendimentoService;
 import java.io.Serializable;
+import javax.annotation.PostConstruct;
 import javax.enterprise.context.RequestScoped;
+import javax.faces.context.FacesContext;
 import javax.inject.Inject;
 import javax.inject.Named;
+import javax.servlet.http.HttpSession;
 
 /**
  *
@@ -37,9 +40,9 @@ public class FuncionarioController implements Serializable{
     private HorarioAtendimentoService has;
     private Funcionario funcionario;
     private Funcionario logado;
-    private Servico servico = new Servico();
-    private Atendimento ate = new Atendimento();
-    private HorarioAtendimento ha = new HorarioAtendimento();
+    private Servico servico;
+    private Atendimento ate;
+    private HorarioAtendimento ha;
 
     public HorarioAtendimentoService getHas() {
         return has;
@@ -126,11 +129,21 @@ public class FuncionarioController implements Serializable{
     }
     
     public String logar(){
-        if(fs.logar(funcionario)){
-            this.logado = this.funcionario;
-            return "home";
+        if(this.funcionario.getNome() != null){
+            this.logado = fs.buscarPorNome(this.funcionario.getNome());
+            if((this.logado != null) && (this.funcionario.getSenha().equals(this.logado.getSenha()))){
+                HttpSession sessao = (HttpSession) FacesContext.getCurrentInstance().getExternalContext().getSession(true);
+                sessao.setAttribute("funcionario", logado);
+                return "homefuncionario.xhtml?faces-redirect=true";
+            }
         }
-        return "index";
+        return "loginfuncionario.xhtml?faces-redirect=true";
+    }
+    
+    public String logout(){
+        this.logado = new Funcionario();
+        FacesContext.getCurrentInstance().getExternalContext().invalidateSession();
+        return "indexfuncionario.xhtml?faces-redirect=true";
     }
     
     public void cadastrarServico(){
@@ -142,18 +155,27 @@ public class FuncionarioController implements Serializable{
         this.ate.setCliente(cs.buscarPorNome(ate.getCliente().getNome()));
         this.as.add(ate);
         ate = new Atendimento();
-        return "home.xhtml";
+        return "homefuncionario.xhtml?faces-redirect=true";
     }
     
     public String desmarcar(long ate){
         this.fs.desmarcar(ate, logado);
-        return "home.xhtml";
+        return "homefuncionario.xhtml?faces-redirect=true";
     }
     
     public void criarHA(){
         ha.setDiaSemana(ha.getDia().getDayOfWeek());
         ha.setFun(logado);
         this.has.add(ha);
+    }
+    
+    @PostConstruct
+    public void inicio(){
+        logado = new Funcionario();
+        servico = new Servico();
+        ate = new Atendimento();
+        ha = new HorarioAtendimento();
+        funcionario = new Funcionario();
     }
     
 }
