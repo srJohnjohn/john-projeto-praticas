@@ -3,11 +3,10 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package ifpb.agenda;
+package ifpb.horarioatendimento;
 
-import java.io.Serializable;
+import ifpb.servico.Servico;
 import java.util.List;
-import javax.enterprise.context.RequestScoped;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 
@@ -15,8 +14,7 @@ import javax.persistence.PersistenceContext;
  *
  * @author recursive
  */
-@RequestScoped
-public class AgendaRepository implements Serializable{
+public class HorarioAtendimentoRepository {
     
     @PersistenceContext()
     private EntityManager em;
@@ -29,24 +27,23 @@ public class AgendaRepository implements Serializable{
         this.em = em;
     }
     
-    public void add(Agenda age){
-        em.persist(age);
+    public void add(HorarioAtendimento ha){
+        em.persist(ha);
     }
     
-    public void remove(Agenda age){
-        em.remove(age);
+    public void remove(HorarioAtendimento ha){
+        em.remove(ha);
     }
     
-    public void update(Agenda age){
-        em.merge(age);
+    public void update(HorarioAtendimento ha){
+        em.merge(ha);
     }
     
-    public List<Agenda> list(){
-        return em.createQuery("SELECT a FROM Agenda a", Agenda.class).getResultList();
+    public List<HorarioAtendimento> list(){
+        return em.createQuery("SELECT ha FROM HorarioAtendimento ha", HorarioAtendimento.class).getResultList();
     }
     
-    public Agenda buscarPorId(int id) {
-        return em.find(Agenda.class, id);
+    public HorarioAtendimento buscarPorId(long id) {
+        return em.find(HorarioAtendimento.class, id);
     }
-
 }

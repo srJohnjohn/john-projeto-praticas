@@ -23,9 +23,9 @@
                 <section>
                     <h:form>
                         <h1>Marcar Atendimento</h1>
-                        <h:inputText value="#{clienteController.ate.dia}"/>
-                        <h:selectOneMenu value="#{clienteController.ate.fun.servicos}"/>
-                        <h:inputText value="#{clienteController.ate.inicio}"/>
+                        <h:outputText value="Dia"/><h:inputText value="#{clienteController.ate.dia}"/>
+                        <h:outputText value="Servico Desejado"/><h:selectOneMenu value="#{clienteController.ate.fun.servicos}"/>
+                        <h:outputText value="Inicio"/><h:inputText value="#{clienteController.ate.inicio}"/>
                         <h:commandButton action="#{clienteController.cadastrarAtendimento()}" value="Marcar" />
                     </h:form>
                 </section>

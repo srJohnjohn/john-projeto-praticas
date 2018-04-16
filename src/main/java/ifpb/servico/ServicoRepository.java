@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package ads.projeto.praticas.servico;
+package ifpb.servico;
 
 import java.util.List;
 import javax.enterprise.context.RequestScoped;
@@ -44,7 +44,7 @@ public class ServicoRepository {
         return em.createQuery("SELECT s FROM Servico s", Servico.class).getResultList();
     }
     
-    public Servico buscarPorId(int id) {
+    public Servico buscarPorId(long id) {
         return em.find(Servico.class, id);
     }
 

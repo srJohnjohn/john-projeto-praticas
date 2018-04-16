@@ -3,9 +3,9 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package ads.projeto.praticas.agenda;
+package ifpb.agenda;
 
-import ads.projeto.praticas.atendimento.Atendimento;
+import ifpb.atendimento.Atendimento;
 import java.io.Serializable;
 import javax.enterprise.context.RequestScoped;
 

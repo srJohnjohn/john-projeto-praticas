@@ -3,9 +3,9 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package ads.projeto.praticas.horarioatendimento;
+package ifpb.horarioatendimento;
 
-import ads.projeto.praticas.funcionario.Funcionario;
+import ifpb.funcionario.Funcionario;
 import java.io.Serializable;
 import java.time.DayOfWeek;
 import java.time.LocalDate;

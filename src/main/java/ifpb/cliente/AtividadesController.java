@@ -5,7 +5,7 @@
  */
 package ifpb.cliente;
 
-import ads.projeto.praticas.funcionario.FuncionarioServece;
+import ifpb.funcionario.FuncionarioServece;
 import javax.inject.Inject;
 
 /**

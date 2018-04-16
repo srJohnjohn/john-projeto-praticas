@@ -3,7 +3,7 @@
  * To change this tsrplate file, choose Tools | Tsrplates
  * and open the tsrplate in the editor.
  */
-package ads.projeto.praticas.servico;
+package ifpb.servico;
 
 import java.io.Serializable;
 import java.util.List;

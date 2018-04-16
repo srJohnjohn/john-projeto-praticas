@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package ads.projeto.praticas.persistence;
+package ifpb.persistence;
 
 import java.lang.annotation.ElementType;
 import java.lang.annotation.Retention;

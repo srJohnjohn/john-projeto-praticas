@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package ads.projeto.praticas.funcionario;
+package ifpb.funcionario;
 
 import java.util.List;
 import javax.enterprise.context.RequestScoped;
@@ -52,7 +52,7 @@ public class FuncionarioRepository {
         List<Funcionario> funcionarios = list();
         Funcionario fun = null;
         for (Funcionario funcionario : funcionarios) {
-            if (fun.getNome() == null ? nome == null : funcionario.getNome().equals(nome)){
+            if (funcionario.getNome() == null ? nome == null : funcionario.getNome().equals(nome)){
                 fun = funcionario;
             }
         }

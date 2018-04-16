@@ -5,10 +5,10 @@
  */
 package ifpb.auxiliares;
 
-import ads.projeto.praticas.agenda.Agenda;
-import ads.projeto.praticas.atendimento.Atendimento;
-import ads.projeto.praticas.funcionario.Funcionario;
-import ads.projeto.praticas.horarioatendimento.HorarioAtendimento;
+import ifpb.agenda.Agenda;
+import ifpb.atendimento.Atendimento;
+import ifpb.funcionario.Funcionario;
+import ifpb.horarioatendimento.HorarioAtendimento;
 import java.time.DayOfWeek;
 import java.time.LocalDate;
 import java.time.LocalDateTime;

@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package ads.projeto.praticas.cliente;
+package ifpb.cliente;
 
 import java.util.List;
 import javax.enterprise.context.RequestScoped;

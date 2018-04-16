@@ -3,9 +3,9 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package ads.projeto.praticas.usuario;
+package ifpb.usuario;
 
-import ads.projeto.praticas.persistence.JPARepository;
+import ifpb.persistence.JPARepository;
 import javax.enterprise.context.RequestScoped;
 import javax.enterprise.context.SessionScoped;
 import javax.inject.Inject;

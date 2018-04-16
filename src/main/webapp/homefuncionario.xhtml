@@ -12,16 +12,16 @@
                     <h:form>
                         <h1>Cadastrar Servico</h1>
                         <h:selectOneMenu value="#{funcionarioController.servico.tipo}"/>
-                        <h:inputText value="#{funcionarioController.servico.duracao}"/>
-                        <h:inputText value="#{funcionarioController.servico.perco}"/>
-                        <h:commandButton value="#{funcionarioController.cadastrarServico()}"/>
+                        <h:outputText value="duaracao do servico"/><h:inputText value="#{funcionarioController.servico.duracao}"/>
+                        <h:outputText value="preco do servico"/><h:inputText value="#{funcionarioController.servico.perco}"/>
+                        <h:commandButton action="#{funcionarioController.cadastrarServico()}" value="Cadastrar"/>
                     </h:form>
                     <h:form>
                         <h1>Marca Servico</h1>
                         <h:selectOneMenu value="#{funcionarioController.logado.servicos}"/>
-                        <h:inputText value="#{funcionarioController.ate.dia}"/>
-                        <h:inputText value="#{funcionarioController.ate.inicio}"/>
-                        <h:inputText value="#{funcionarioController.ate.cliente.nome}"/>
+                        <h:outputText value="dia do Atendimento"/><h:inputText value="#{funcionarioController.ate.dia}"/>
+                        <h:outputText value="inicio do Atendimento"/><h:inputText value="#{funcionarioController.ate.inicio}"/>
+                        <h:outputText value="nome do cliente"/><h:inputText value="#{funcionarioController.ate.cliente.nome}"/>
                         <h:commandButton action="#{funcionarioController.agendar}" value="Agendar"/>
                     </h:form>
                     <h:dataTable var="atendimento" value="#{funcionarioController.logado.minhaAgenda.atendimentos}">
@@ -33,6 +33,15 @@
                             <h:commandButton action="#{funcionarioController.desmarcar(atendimento.id)}" value="Desmarcar Atendimento"/>
                         </h:form>
                     </h:dataTable>
+                </section>
+                <section>
+                    <h1>Marca Horario de Atendimento</h1>
+                    <h:form>
+                        <h:outputText value="Dia dos Atendimentos"/><h:inputText value="#{funcionarioController.ha.dia}"/>
+                        <h:outputText value="Inicio do Horario"/><h:inputText value="#{funcionarioController.ha.chegada}"/>
+                        <h:outputText value="Saida do Horario"/><h:inputText value="#{funcionarioController.ha.saida}"/>
+                        <h:commandButton value="Salvar" action="#{funcionarioController.criarHA()}"/>
+                    </h:form>
                 </section>
             </ui:define>
         </ui:composition>

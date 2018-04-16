@@ -3,11 +3,11 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package ads.projeto.praticas.agenda;
+package ifpb.agenda;
 
-import ads.projeto.praticas.horarioatendimento.HorarioAtendimento;
-import ads.projeto.praticas.atendimento.Atendimento;
-import ads.projeto.praticas.funcionario.Funcionario;
+import ifpb.horarioatendimento.HorarioAtendimento;
+import ifpb.atendimento.Atendimento;
+import ifpb.funcionario.Funcionario;
 import java.io.Serializable;
 import java.time.LocalDateTime;
 import java.util.List;

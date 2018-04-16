@@ -3,11 +3,11 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package ads.projeto.praticas.funcionario;
+package ifpb.funcionario;
 
-import ads.projeto.praticas.atendimento.Atendimento;
-import ads.projeto.praticas.atendimento.AtendimentoService;
-import ads.projeto.praticas.cliente.ClienteServece;
+import ifpb.atendimento.Atendimento;
+import ifpb.atendimento.AtendimentoService;
+import ifpb.cliente.ClienteServece;
 import java.util.List;
 import javax.enterprise.context.RequestScoped;
 import javax.inject.Inject;

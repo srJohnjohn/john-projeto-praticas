@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package ads.projeto.praticas.controles;
+package ifpb.controles;
 
 import java.io.Serializable;
 import javax.enterprise.context.RequestScoped;

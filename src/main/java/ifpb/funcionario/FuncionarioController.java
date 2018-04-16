@@ -3,13 +3,15 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package ads.projeto.praticas.funcionario;
+package ifpb.funcionario;
 
-import ads.projeto.praticas.atendimento.Atendimento;
-import ads.projeto.praticas.atendimento.AtendimentoService;
-import ads.projeto.praticas.cliente.ClienteServece;
-import ads.projeto.praticas.servico.Servico;
-import ads.projeto.praticas.servico.ServicoService;
+import ifpb.atendimento.Atendimento;
+import ifpb.atendimento.AtendimentoService;
+import ifpb.cliente.ClienteServece;
+import ifpb.horarioatendimento.HorarioAtendimento;
+import ifpb.servico.Servico;
+import ifpb.servico.ServicoService;
+import ifpb.horarioatendimento.HorarioAtendimentoService;
 import java.io.Serializable;
 import javax.enterprise.context.RequestScoped;
 import javax.inject.Inject;
@@ -31,10 +33,37 @@ public class FuncionarioController implements Serializable{
     private AtendimentoService as;
     @Inject
     private ClienteServece cs;
+    @Inject
+    private HorarioAtendimentoService has;
     private Funcionario funcionario;
     private Funcionario logado;
     private Servico servico = new Servico();
     private Atendimento ate = new Atendimento();
+    private HorarioAtendimento ha = new HorarioAtendimento();
+
+    public HorarioAtendimentoService getHas() {
+        return has;
+    }
+
+    public void setHas(HorarioAtendimentoService has) {
+        this.has = has;
+    }
+
+    public ClienteServece getCs() {
+        return cs;
+    }
+
+    public void setCs(ClienteServece cs) {
+        this.cs = cs;
+    }
+
+    public HorarioAtendimento getHa() {
+        return ha;
+    }
+
+    public void setHa(HorarioAtendimento ha) {
+        this.ha = ha;
+    }
 
     public AtendimentoService getAs() {
         return as;
@@ -121,5 +150,10 @@ public class FuncionarioController implements Serializable{
         return "home.xhtml";
     }
     
+    public void criarHA(){
+        ha.setDiaSemana(ha.getDia().getDayOfWeek());
+        ha.setFun(logado);
+        this.has.add(ha);
+    }
     
 }

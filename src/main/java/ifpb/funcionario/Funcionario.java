@@ -3,10 +3,10 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package ads.projeto.praticas.funcionario;
+package ifpb.funcionario;
 
-import ads.projeto.praticas.agenda.Agenda;
-import ads.projeto.praticas.servico.Servico;
+import ifpb.agenda.Agenda;
+import ifpb.servico.Servico;
 import java.io.Serializable;
 import java.util.List;
 import javax.persistence.Entity;
