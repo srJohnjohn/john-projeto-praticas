@@ -13,8 +13,12 @@
                     <h:dataTable value="#{clienteController.meusAtendimentos}" var="atendimentos">
                         <h:form>
                             <h:outputText value="#{atendimentos.sev}"/>
-                            <h:outputText value="#{atendimentos.dia}"/>
-                            <h:outputText value="#{atendimentos.inicio}"/>
+                            <h:outputText id="inputData" value="#{atendimentos.dia}">
+                                <f:converter converterId="conversoData" for="inputData"/>
+                            </h:outputText>
+                            <h:outputText id="inputTime" value="#{atendimentos.inicio}">
+                                <f:converter converterId="conversorTime" for="inputTime"/>
+                            </h:outputText>
                             <h:outputText value="#{atendimentos.fun.nome}"/>
                             <h:commandButton action="#{clienteController.desmarcar(atendimentos.id)}" value="Desmarcar"/>
                         </h:form>
@@ -23,9 +27,15 @@
                 <section>
                     <h:form>
                         <h1>Marcar Atendimento</h1>
-                        <h:outputText value="Dia"/><h:inputText value="#{clienteController.ate.dia}"/>
-                        <h:outputText value="Servico Desejado"/><h:selectOneMenu value="#{clienteController.ate.fun.servicos}"/>
-                        <h:outputText value="Inicio"/><h:inputText value="#{clienteController.ate.inicio}"/>
+                        <h:outputText value="Dia"/><h:inputText id="inputData" value="#{clienteController.ate.dia}">
+                            <f:converter converterId="conversoData" for="inputData"/>
+                        </h:inputText>
+                        <h:outputText value="Servico Desejado"/><h:selectOneMenu value="#{clienteController.ate.sev}">
+                            <f:selectItems value="#{clienteController.ate.fun.servicos}"/>
+                        </h:selectOneMenu>
+                        <h:outputText value="Inicio"/><h:inputText id="inputTime" value="#{clienteController.ate.inicio}">
+                            <f:converter converterId="conversorTime" for="inputTime"/>
+                        </h:inputText>
                         <h:commandButton action="#{clienteController.cadastrarAtendimento()}" value="Marcar" />
                     </h:form>
                 </section>
@@ -41,8 +51,12 @@
                     <h:form>
                         <h:commandButton action="#{clienteController.anteFun()}" value="<" />
                         <h:commandButton action="#{clienteController.proxFun()}" value=">" />
-                        <h:outputText value="#{clienteController.haf.chegada}"/>
-                        <h:outputText value="#{clienteController.haf.saida}"/>
+                        <h:outputText value="#{clienteController.haf.chegada}">
+                            <f:converter converterId="conversorTime" for="inputTime"/>
+                        </h:outputText>
+                        <h:outputText value="#{clienteController.haf.saida}">
+                            <f:converter converterId="conversorTime" for="inputTime"/>
+                        </h:outputText>
                     </h:form>
                 </section>
                 <section>
@@ -52,8 +66,12 @@
                         <h:commandButton action="#{clienteController.proxFuns()}" value=">" />
                         <h:dataTable value="#{clienteController.has}" var="horarios">
                             <h:outputText value="#{horarios.fun.nome}"/>
-                            <h:outputText value="#{horarios.chegada}"/>
-                            <h:outputText value="#{horarios.saida}"/>
+                            <h:outputText value="#{horarios.chegada}">
+                                <f:converter converterId="conversorTime" for="inputTime"/>
+                            </h:outputText>
+                            <h:outputText value="#{horarios.saida}">
+                                <f:converter converterId="conversorTime" for="inputTime"/>
+                            </h:outputText>
                         </h:dataTable>
                     </h:form>
                 </section>
