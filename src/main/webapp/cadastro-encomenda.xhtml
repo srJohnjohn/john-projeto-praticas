@@ -1,0 +1,64 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+    <h:body>
+        <ui:composition template="index.xhtml">
+            <ui:define name="content">
+                <section>
+                    <h1>Adicona encomenda</h1>
+                    <h:form id="form">
+                        <label>
+                            <h:outputLabel value="#{encomendaController.mensagemErro}" style="color:red" />
+                        </label>
+                        <br/>
+                        <label>
+                            Titulo: 
+                            <h:inputText value="#{encomendaController.encomenda.titulo}" autocomplete="on" required="true" />
+                        </label>
+                        <label>
+                            Descricao: 
+                            <h:inputText value="#{encomendaController.encomenda.descricao}" autocomplete="on" required="true"/>
+                        </label>
+                        <label>
+                            Previsao de entrega: 
+                            <h:inputText id="inputData" value="#{encomendaController.encomenda.dtEntrega}" autocomplete="on" required="true">
+                                <f:converter converterId="localDateFacesConverter" for="inputData"/>
+                            </h:inputText>
+                        </label>
+                        <h:commandButton value="Salvar" action="#{encomendaController.addEncomenda()}" />
+                    </h:form>
+                </section>
+                <br/>
+                <section> 
+                    <h:form>
+                    <h1>Encomendas cadastradas</h1>
+                    <h:dataTable id="table"  value="#{encomendaController.allEncomendas}" var="encomenda">
+                        <h:column>
+                            <f:facet name="header">Titulo</f:facet>
+                            #{encomenda.titulo}
+                        </h:column>
+                        <h:column>
+                            <f:facet name="header">Descricao</f:facet>
+                            #{encomenda.descricao}
+                        </h:column>
+                        <h:column>
+                            <f:facet name="header">Data de previsao de entrega entrega</f:facet>
+                            <h:outputLabel id="outputData" value = "#{encomenda.dtEntrega}" style="color:#{encomenda.color}">
+                                <f:converter converterId="localDateFacesConverter" for="outputData"/>
+                            </h:outputLabel>
+                        </h:column>
+                        <h:column>
+                            <h:commandButton value="Editar" action="#{encomendaController.setEncomenda(encomenda)}"/>
+                        </h:column>
+                    </h:dataTable>
+                    </h:form>
+                </section>
+            </ui:define>
+        </ui:composition>
+    </h:body>
+</html>
+

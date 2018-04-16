@@ -1,0 +1,40 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+    <h:body>
+        <ui:composition template="index.xhtml">
+            <ui:define name="content">
+                <section>
+                    <h:form>
+                        <h1>Cadastrar Servico</h1>
+                        <h:selectOneMenu value="#{funcionarioController.servico.tipo}"/>
+                        <h:inputText value="#{funcionarioController.servico.duracao}"/>
+                        <h:inputText value="#{funcionarioController.servico.perco}"/>
+                        <h:commandButton value="#{funcionarioController.cadastrarServico()}"/>
+                    </h:form>
+                    <h:form>
+                        <h1>Marca Servico</h1>
+                        <h:selectOneMenu value="#{funcionarioController.logado.servicos}"/>
+                        <h:inputText value="#{funcionarioController.ate.dia}"/>
+                        <h:inputText value="#{funcionarioController.ate.inicio}"/>
+                        <h:inputText value="#{funcionarioController.ate.cliente.nome}"/>
+                        <h:commandButton action="#{funcionarioController.agendar}" value="Agendar"/>
+                    </h:form>
+                    <h:dataTable var="atendimento" value="#{funcionarioController.logado.minhaAgenda.atendimentos}">
+                        <h:form>
+                            <h:outputText value="#{atendimento.sev.tipo}"/>
+                            <h:outputText value="#{atendimento.sev.duracao}"/>
+                            <h:outputText value="#{atendimento.inicio}"/>
+                            <h:outputText value="#{atendimento.cliente.nome}"/>
+                            <h:commandButton action="#{funcionarioController.desmarcar(atendimento.id)}" value="Desmarcar Atendimento"/>
+                        </h:form>
+                    </h:dataTable>
+                </section>
+            </ui:define>
+        </ui:composition>
+    </h:body>
+</html>

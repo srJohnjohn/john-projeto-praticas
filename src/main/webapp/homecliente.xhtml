@@ -1,0 +1,64 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+    <h:body>
+        <ui:composition template="index.xhtml">
+            <ui:define name="content">
+                <section>
+                    <h1>Meus Atendimentos</h1>
+                    <h:dataTable value="#{clienteController.meusAtendimentos}" var="atendimentos">
+                        <h:form>
+                            <h:outputText value="#{atendimentos.sev}"/>
+                            <h:outputText value="#{atendimentos.dia}"/>
+                            <h:outputText value="#{atendimentos.inicio}"/>
+                            <h:outputText value="#{atendimentos.fun.nome}"/>
+                            <h:commandButton action="#{clienteController.desmarcar(atendimentos.id)}" value="Desmarcar"/>
+                        </h:form>
+                    </h:dataTable>
+                </section>
+                <section>
+                    <h:form>
+                        <h1>Marcar Atendimento</h1>
+                        <h:inputText value="#{clienteController.ate.dia}"/>
+                        <h:selectOneMenu value="#{clienteController.ate.fun.servicos}"/>
+                        <h:inputText value="#{clienteController.ate.inicio}"/>
+                        <h:commandButton action="#{clienteController.cadastrarAtendimento()}" value="Marcar" />
+                    </h:form>
+                </section>
+                <section>
+                    <h:form>
+                        <h1>Buscar Funcionario</h1>
+                        <h:inputText value="#{clienteController.fun.nome}"/>
+                        <h:commandButton action="#{clienteController.buscarFuncionarioNome()}" value="Buscar"/>
+                    </h:form>
+                </section>
+                <section>
+                    <h1>Horarios disponiveis do Funcionario</h1>
+                    <h:form>
+                        <h:commandButton action="#{clienteController.anteFun()}" value="<" />
+                        <h:commandButton action="#{clienteController.proxFun()}" value=">" />
+                        <h:outputText value="#{clienteController.haf.chegada}"/>
+                        <h:outputText value="#{clienteController.haf.saida}"/>
+                    </h:form>
+                </section>
+                <section>
+                    <h:form>
+                        <h1>Horarios disponiveis de todos os Funcionarios</h1>
+                        <h:commandButton action="#{clienteController.anteFuns()}" value="<" />
+                        <h:commandButton action="#{clienteController.proxFuns()}" value=">" />
+                        <h:dataTable value="#{clienteController.has}" var="horarios">
+                            <h:outputText value="#{horarios.fun.nome}"/>
+                            <h:outputText value="#{horarios.chegada}"/>
+                            <h:outputText value="#{horarios.saida}"/>
+                        </h:dataTable>
+                    </h:form>
+                </section>
+                
+            </ui:define>
+        </ui:composition>
+    </h:body>
+</html>
