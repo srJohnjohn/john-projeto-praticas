@@ -10,6 +10,7 @@ import java.util.List;
 import javax.enterprise.context.RequestScoped;
 import javax.inject.Inject;
 import javax.persistence.EntityManager;
+import javax.persistence.EntityTransaction;
 import javax.persistence.PersistenceContext;
 
 /**
@@ -31,15 +32,36 @@ public class AgendaRepository implements Serializable{
     }
     
     public void add(Agenda age){
-        em.persist(age);
+        EntityTransaction et = em.getTransaction();
+        try {
+            et.begin();
+            em.persist(age);
+            et.commit();
+        } catch (Exception e) {
+            et.rollback();
+        }
     }
     
     public void remove(Agenda age){
-        em.remove(age);
+        EntityTransaction et = em.getTransaction();
+        try {
+            et.begin();
+            em.remove(age);
+            et.commit();
+        } catch (Exception e) {
+            et.rollback();
+        }
     }
     
     public void update(Agenda age){
-        em.merge(age);
+        EntityTransaction et = em.getTransaction();
+        try {
+            et.begin();
+            em.merge(age);
+            et.commit();
+        } catch (Exception e) {
+            et.rollback();
+        }
     }
     
     public List<Agenda> list(){

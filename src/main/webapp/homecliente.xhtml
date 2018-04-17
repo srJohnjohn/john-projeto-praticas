@@ -29,13 +29,13 @@
                         <h1>Marcar Atendimento</h1>
                         <h:outputText value="Dia"/><h:inputText id="inputData" value="#{clienteController.ate.dia}">
                             <f:converter converterId="conversorData" for="inputData"/>
-                        </h:inputText>
+                        </h:inputText><br/>
                         <h:outputText value="Servico Desejado"/><h:selectOneMenu value="#{clienteController.ate.sev}">
                             <f:selectItems value="#{clienteController.ate.fun.servicos}"/>
-                        </h:selectOneMenu>
+                        </h:selectOneMenu><br/>
                         <h:outputText value="Inicio"/><h:inputText id="inputTime" value="#{clienteController.ate.inicio}">
                             <f:converter converterId="conversorTime" for="inputTime"/>
-                        </h:inputText>
+                        </h:inputText><br/>
                         <h:commandButton action="#{clienteController.cadastrarAtendimento()}" value="Marcar" />
                     </h:form>
                 </section>

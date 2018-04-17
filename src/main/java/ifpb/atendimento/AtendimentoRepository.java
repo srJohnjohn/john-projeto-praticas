@@ -31,15 +31,33 @@ public class AtendimentoRepository implements Serializable{
     }
     
     public void add(Atendimento ate){
-        em.persist(ate);
+        try {
+            em.getTransaction().begin();
+            em.persist(ate);
+            em.getTransaction().commit();
+        } catch (Exception e) {
+            em.getTransaction().rollback();
+        }
     }
     
     public void remove(Atendimento ate){
-        em.remove(ate);
+        try {
+            em.getTransaction().begin();
+            em.remove(ate);
+            em.getTransaction().commit();
+        } catch (Exception e) {
+            em.getTransaction().rollback();
+        }
     }
     
     public void update(Atendimento ate){
-        em.merge(ate);
+        try {
+            em.getTransaction().begin();
+            em.merge(ate);
+            em.getTransaction().commit();
+        } catch (Exception e) {
+            em.getTransaction().rollback();
+        }
     }
     
     public List<Atendimento> list(){

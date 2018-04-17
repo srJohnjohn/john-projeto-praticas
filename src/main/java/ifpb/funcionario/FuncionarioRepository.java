@@ -56,7 +56,13 @@ public class FuncionarioRepository {
     }
     
     public void update(Funcionario fun){
-        em.merge(fun);
+        try {
+            em.getTransaction().begin();
+            em.merge(fun);
+            em.getTransaction().commit();
+        } catch (Exception e) {
+            em.getTransaction().rollback();
+        }
     }
     
     public List<Funcionario> list(){

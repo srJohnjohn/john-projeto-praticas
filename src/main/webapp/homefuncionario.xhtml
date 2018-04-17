@@ -11,37 +11,39 @@
                 <section>
                     <h:form>
                         <h1>Cadastrar Servico</h1>
+                        <h:outputText value="Tipo do servico"/>
                         <h:selectOneMenu value="#{funcionarioController.servico.setTipo(tipo)}">
                             <f:selectItems value="#{funcionarioController.servico.tipo}"/>
-                        </h:selectOneMenu>
+                        </h:selectOneMenu><br/>
                         <h:outputText value="duaracao do servico"/><h:inputText value="#{funcionarioController.servico.duracao}">
-                            <f:converter converterId="conversorTime" for="inputTime"/>
-                        </h:inputText>
-                        <h:outputText value="preco do servico"/><h:inputText value="#{funcionarioController.servico.perco}"/>
+                            <f:convertDateTime type="localDateTime"/>
+                        </h:inputText><br/>
+                        <h:outputText value="preco do servico"/><h:inputText value="#{funcionarioController.servico.perco}"/><br/>
                         <h:commandButton action="#{funcionarioController.cadastrarServico()}" value="Cadastrar"/>
                     </h:form>
                     <h:form>
                         <h1>Marca Servico</h1>
+                        <h:outputText value="Serviço desejado"/>
                         <h:selectOneMenu value="#{funcionarioController.ate.sev}">
                             <f:selectItems value="#{funcionarioController.logado.servicos}"/>
-                        </h:selectOneMenu>
+                        </h:selectOneMenu><br/>
                         <h:outputText id="inputData" value="dia do Atendimento"/><h:inputText value="#{funcionarioController.ate.dia}">
-                            <f:converter converterId="conversorData" for="inputData"/>
-                        </h:inputText>
+                            <f:convertDateTime type="localDate" pattern="dd.MM.uu"/>
+                        </h:inputText><br/>
                         <h:outputText value="inicio do Atendimento"/><h:inputText value="#{funcionarioController.ate.inicio}">
-                            <f:converter converterId="conversorTime" for="inputTime"/>
-                        </h:inputText>
-                        <h:outputText value="nome do cliente"/><h:inputText value="#{funcionarioController.ate.cliente.nome}"/>
+                            <f:convertDateTime type="localDateTime"/>
+                        </h:inputText><br/>
+                        <h:outputText value="nome do cliente"/><h:inputText value="#{funcionarioController.ate.cliente.nome}"/><br/>
                         <h:commandButton action="#{funcionarioController.agendar}" value="Agendar"/>
                     </h:form>
                     <h:dataTable var="atendimento" value="#{funcionarioController.logado.minhaAgenda.atendimentos}">
                         <h:form>
                             <h:outputText value="#{atendimento.sev.tipo}"/>
                             <h:outputText value="#{atendimento.sev.duracao}">
-                                <f:converter converterId="conversorTime" for="inputTime"/>
+                                <f:convertDateTime type="localDateTime"/>
                             </h:outputText>
-                            <h:outputText value="#{atendimento.inicio}">
-                                <f:converter converterId="conversorTime" for="inputTime"/>
+                            <h:outputText id="inputTime" value="#{atendimento.inicio}">
+                                <f:convertDateTime type="localDateTime"/>
                             </h:outputText>
                             <h:outputText value="#{atendimento.cliente.nome}"/>
                             <h:commandButton action="#{funcionarioController.desmarcar(atendimento.id)}" value="Desmarcar Atendimento"/>
@@ -52,16 +54,30 @@
                     <h1>Marca Horario de Atendimento</h1>
                     <h:form>
                         <h:outputText value="Dia dos Atendimentos"/><h:inputText value="#{funcionarioController.ha.dia}">
-                            <f:converter converterId="conversorData" for="inputData"/>
-                        </h:inputText>
+                            <f:convertDateTime type="localDate" pattern="dd/MM/yyyy"/>
+                        </h:inputText><br/>
                         <h:outputText value="Inicio do Horario"/><h:inputText value="#{funcionarioController.ha.chegada}">
-                            <f:converter converterId="conversorTime" for="inputTime"/>
-                        </h:inputText>
+                            <f:converter converterId="conversorTime" />
+                        </h:inputText><br/>
                         <h:outputText value="Saida do Horario"/><h:inputText value="#{funcionarioController.ha.saida}">
-                            <f:converter converterId="conversorTime" for="inputTime"/>
-                        </h:inputText>
+                            <f:converter converterId="conversorTime"/>
+                        </h:inputText><br/>
                         <h:commandButton value="Salvar" action="#{funcionarioController.criarHA()}"/>
                     </h:form>
+                </section>
+                <section>
+                    <h1>Meus Horarios de Atendimento</h1>
+                    <h:dataTable value="#{funcionarioController.logado.minhaAgenda.horarios}" var="meusHorarios">
+                        <h:outputText value="#{meusHorarios.dia}">
+                            <f:convertDateTime type="localDate" pattern="dd/MM/yyyy"/>
+                        </h:outputText>
+                        <h:outputText value="#{meusHorarios.chegada}">
+                            <f:convertDateTime type="localDateTime" pattern="hh:mm"/>
+                        </h:outputText>
+                        <h:outputText value="#{meusHorarios.saida}">
+                            <f:convertDateTime type="localDateTime" pattern="hh:mm"/>
+                        </h:outputText>
+                    </h:dataTable>
                 </section>
             </ui:define>
         </ui:composition>

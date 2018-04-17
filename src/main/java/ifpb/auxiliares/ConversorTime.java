@@ -21,7 +21,10 @@ public class ConversorTime implements Converter{
 
     @Override
     public Object getAsObject(FacesContext context, UIComponent component, String value) {
-        LocalTime tempo = new LocalTimeStringConverter().fromString(value);
+        String[] medida = value.split(":");
+        int horas = Integer.parseInt(medida[0]);
+        int minutos = Integer.parseInt(medida[1]);
+        LocalTime tempo =  LocalTime.of(horas, minutos);
         return tempo;
     }
 

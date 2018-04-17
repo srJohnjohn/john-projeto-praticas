@@ -30,15 +30,33 @@ public class ServicoRepository {
     }
     
     public void add(Servico ser){
-        em.persist(ser);
+        try {
+            em.getTransaction().begin();
+            em.persist(ser);
+            em.getTransaction().commit();
+        } catch (Exception e) {
+            em.getTransaction().rollback();
+        }
     }
     
     public void remove(Servico ser){
-        em.remove(ser);
+        try {
+            em.getTransaction().begin();
+            em.merge(ser);
+            em.getTransaction().commit();
+        } catch (Exception e) {
+            em.getTransaction().rollback();
+        }
     }
     
     public void update(Servico ser){
-        em.merge(ser);
+        try {
+            em.getTransaction().begin();
+            em.merge(ser);
+            em.getTransaction().commit();
+        } catch (Exception e) {
+            em.getTransaction().rollback();
+        }
     }
     
     public List<Servico> list(){

@@ -5,6 +5,7 @@
  */
 package ifpb.funcionario;
 
+import ifpb.agenda.Agenda;
 import ifpb.atendimento.Atendimento;
 import ifpb.atendimento.AtendimentoService;
 import ifpb.cliente.ClienteServece;
@@ -17,6 +18,7 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.annotation.PostConstruct;
 import javax.enterprise.context.RequestScoped;
+import javax.enterprise.context.SessionScoped;
 import javax.faces.context.FacesContext;
 import javax.inject.Inject;
 import javax.inject.Named;
@@ -27,7 +29,7 @@ import javax.servlet.http.HttpSession;
  * @author recursive
  */
 @Named
-@RequestScoped
+@SessionScoped
 public class FuncionarioController implements Serializable{
     
     @Inject
@@ -127,6 +129,8 @@ public class FuncionarioController implements Serializable{
     }
     
     public void cadastrarFuncionario(){
+        Package pkg = FacesContext.class.getPackage();
+                
         Logger.getLogger(FuncionarioController.class.getName()).log(Level.INFO, "Cadastrando");
         fs.add(funcionario);
     }
@@ -170,10 +174,12 @@ public class FuncionarioController implements Serializable{
         return "homefuncionario.xhtml?faces-redirect=true";
     }
     
-    public void criarHA(){
+    public String criarHA(){
         ha.setDiaSemana(ha.getDia().getDayOfWeek());
         ha.setFun(logado);
         this.has.add(ha);
+        this.logado.getMinhaAgenda();
+        return "homefuncionario.xhtml?faces-redirect=true";
     }
     
     @PostConstruct
@@ -182,6 +188,10 @@ public class FuncionarioController implements Serializable{
         servico = new Servico();
         ate = new Atendimento();
         ha = new HorarioAtendimento();
+        logado.setMinhaAgenda(new Agenda());
+        logado.getMinhaAgenda().setAtendimentos(as.list());
+        logado.getMinhaAgenda().setHorarios(has.list());
+        
         funcionario = new Funcionario();
     }
     

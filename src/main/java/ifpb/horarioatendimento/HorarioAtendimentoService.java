@@ -5,13 +5,17 @@
  */
 package ifpb.horarioatendimento;
 
+import ifpb.funcionario.Funcionario;
+import java.util.ArrayList;
 import java.util.List;
+import javax.enterprise.context.RequestScoped;
 import javax.inject.Inject;
 
 /**
  *
  * @author recursive
  */
+@RequestScoped
 public class HorarioAtendimentoService {
     
     @Inject
@@ -43,6 +47,16 @@ public class HorarioAtendimentoService {
     
     public HorarioAtendimento buscarPorId(int id) {
         return har.buscarPorId(id);
+    }
+    
+    public List<HorarioAtendimento> horariosFuncionario(Funcionario fun){
+        List<HorarioAtendimento> ha = new ArrayList<>();
+        for (HorarioAtendimento horarioAtendimento : list()) {
+            if(horarioAtendimento.getFun().getNome().equals(fun.getNome())){
+                ha.add(horarioAtendimento);
+            }
+        }
+        return ha;
     }
     
 }

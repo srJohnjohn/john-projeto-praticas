@@ -5,8 +5,12 @@
  */
 package ifpb.horarioatendimento;
 
+import ifpb.funcionario.FuncionarioController;
 import ifpb.servico.Servico;
 import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import javax.enterprise.context.RequestScoped;
 import javax.inject.Inject;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
@@ -15,6 +19,7 @@ import javax.persistence.PersistenceContext;
  *
  * @author recursive
  */
+@RequestScoped
 public class HorarioAtendimentoRepository {
     
     @Inject
@@ -29,15 +34,34 @@ public class HorarioAtendimentoRepository {
     }
     
     public void add(HorarioAtendimento ha){
-        em.persist(ha);
+        try {
+            em.getTransaction().begin();
+            em.persist(ha);
+            Logger.getLogger(FuncionarioController.class.getName()).log(Level.INFO, "cadastrando HorarioAtendimento");
+            em.getTransaction().commit();
+        } catch (Exception e) {
+            em.getTransaction().rollback();
+        }
     }
     
     public void remove(HorarioAtendimento ha){
-        em.remove(ha);
+        try {
+            em.getTransaction().begin();
+            em.remove(ha);
+            em.getTransaction().commit();
+        } catch (Exception e) {
+            em.getTransaction().rollback();
+        }
     }
     
     public void update(HorarioAtendimento ha){
-        em.merge(ha);
+        try {
+            em.getTransaction().begin();
+            em.merge(ha);
+            em.getTransaction().commit();
+        } catch (Exception e) {
+            em.getTransaction().rollback();
+        }
     }
     
     public List<HorarioAtendimento> list(){

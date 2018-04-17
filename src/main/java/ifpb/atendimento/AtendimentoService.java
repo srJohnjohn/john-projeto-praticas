@@ -6,6 +6,7 @@
 package ifpb.atendimento;
 
 import ifpb.cliente.Cliente;
+import ifpb.funcionario.Funcionario;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
@@ -54,6 +55,16 @@ public class AtendimentoService implements Serializable{
         List<Atendimento> atendimentos = new ArrayList<>();
         for (Atendimento atendimento : list()) {
             if(atendimento.getCliente().getNome().equals(cli.getNome())){
+                atendimentos.add(atendimento);
+            }
+        }
+        return atendimentos;
+    }
+    
+    public List<Atendimento> atendimentosFuncionario(Funcionario fun){
+        List<Atendimento> atendimentos = new ArrayList<>();
+        for (Atendimento atendimento : list()) {
+            if(atendimento.getCliente().getNome().equals(fun.getNome())){
                 atendimentos.add(atendimento);
             }
         }

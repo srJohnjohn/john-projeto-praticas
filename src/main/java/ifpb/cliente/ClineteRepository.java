@@ -30,15 +30,33 @@ public class ClineteRepository {
     }
     
     public void add(Cliente cli){
-        em.persist(cli);
+        try {
+            em.getTransaction().begin();
+            em.persist(cli);
+            em.getTransaction().commit();
+        } catch (Exception e) {
+            em.getTransaction().rollback();
+        }
     }
     
     public void remove(Cliente cli){
-        em.remove(cli);
+        try {
+            em.getTransaction().begin();
+            em.remove(cli);
+            em.getTransaction().commit();
+        } catch (Exception e) {
+            em.getTransaction().rollback();
+        }
     }
     
     public void update(Cliente cli){
-        em.merge(cli);
+        try {
+            em.getTransaction().begin();
+            em.merge(cli);
+            em.getTransaction().commit();
+        } catch (Exception e) {
+            em.getTransaction().rollback();
+        }
     }
     
     public List<Cliente> list(){
