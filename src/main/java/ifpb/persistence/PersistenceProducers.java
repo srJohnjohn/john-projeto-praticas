@@ -10,12 +10,19 @@ import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
 import javax.enterprise.inject.Produces;
+import javax.persistence.EntityManager;
+import javax.persistence.Persistence;
 
 /**
  *
  * @author ifpb
  */
 public class PersistenceProducers implements Serializable{
+    
+    @Produces
+    public EntityManager createEntityManager() {
+        return Persistence.createEntityManagerFactory("BASEH-PU").createEntityManager();
+    }    
     
 //    @Produces
 //    @JPARepository

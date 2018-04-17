@@ -7,13 +7,19 @@
     </h:head>
     <h:body>
         <h:form>
+            <center>
             <h1>Acesso ao sistema</h1>
-            login: <h:inputText value="#{clienteController.cliente.nome}"/><br/>
-            email: <h:inputText value="#{clienteController.cliente.senha}"/> <br/>
-            <h:commandButton value="Login" action="#{clienteController.logar()}"/>
-            <h:commandButton value="Cadastrar" action="#{clienteController.cadastrar()}"/>
-            <!--<h:outputText value="#{clienteControlador.mensagem}" />-->
+                login: <h:inputText value="#{clienteController.cliente.nome}"/><br/>
+                senha: <h:inputSecret value="#{clienteController.cliente.senha}"/> <br/>
+                <h:commandButton value="Login" action="#{clienteController.logar()}"/>
+                <h:commandButton value="Cadastrar" action="#{clienteController.cadastrar()}"/>
+                <!--<h:outputText value="#{clienteControlador.mensagem}" />-->
+                <h:link value="Retornar" outcome="index"/>
+            </center>
         </h:form>
+        <footer>
+            <p>&copy; Todos os direitos reservados, 2017</p>
+        </footer>
     </h:body>
 </html>
 

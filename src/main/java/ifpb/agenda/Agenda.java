@@ -15,6 +15,7 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
 /**
  *
  * @author ifpb
@@ -25,9 +26,9 @@ public class Agenda implements Serializable {
     @Id
     @GeneratedValue
     private long id;
-    @ManyToOne
+    @OneToMany
     private List<HorarioAtendimento> horarios;
-    @ManyToOne
+    @OneToMany
     private List<Atendimento> atendimentos;
 
     public Agenda(long id, List<HorarioAtendimento> horarios, List<Atendimento> atendimentos) {

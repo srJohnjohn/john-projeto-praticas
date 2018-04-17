@@ -8,6 +8,7 @@ package ifpb.atendimento;
 import java.io.Serializable;
 import java.util.List;
 import javax.enterprise.context.RequestScoped;
+import javax.inject.Inject;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 
@@ -18,7 +19,7 @@ import javax.persistence.PersistenceContext;
 @RequestScoped
 public class AtendimentoRepository implements Serializable{
     
-    @PersistenceContext()
+    @Inject
     private EntityManager em;
     
     public EntityManager getEm() {

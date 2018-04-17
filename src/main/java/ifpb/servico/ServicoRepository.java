@@ -7,6 +7,7 @@ package ifpb.servico;
 
 import java.util.List;
 import javax.enterprise.context.RequestScoped;
+import javax.inject.Inject;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 
@@ -17,7 +18,7 @@ import javax.persistence.PersistenceContext;
 @RequestScoped
 public class ServicoRepository {
     
-    @PersistenceContext()
+    @Inject
     private EntityManager em;
     
     public EntityManager getEm() {

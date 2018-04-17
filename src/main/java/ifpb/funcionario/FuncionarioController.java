@@ -13,6 +13,8 @@ import ifpb.servico.Servico;
 import ifpb.servico.ServicoService;
 import ifpb.horarioatendimento.HorarioAtendimentoService;
 import java.io.Serializable;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.annotation.PostConstruct;
 import javax.enterprise.context.RequestScoped;
 import javax.faces.context.FacesContext;
@@ -125,18 +127,23 @@ public class FuncionarioController implements Serializable{
     }
     
     public void cadastrarFuncionario(){
+        Logger.getLogger(FuncionarioController.class.getName()).log(Level.INFO, "Cadastrando");
         fs.add(funcionario);
     }
     
     public String logar(){
         if(this.funcionario.getNome() != null){
             this.logado = fs.buscarPorNome(this.funcionario.getNome());
+            Logger.getLogger(FuncionarioController.class.getName()).log(Level.INFO, "Conseguil buscar no banco");
             if((this.logado != null) && (this.funcionario.getSenha().equals(this.logado.getSenha()))){
+                Logger.getLogger(FuncionarioController.class.getName()).log(Level.INFO, "Passo do utimo if");
                 HttpSession sessao = (HttpSession) FacesContext.getCurrentInstance().getExternalContext().getSession(true);
                 sessao.setAttribute("funcionario", logado);
+                Logger.getLogger(FuncionarioController.class.getName()).log(Level.INFO, "logado");
                 return "homefuncionario.xhtml?faces-redirect=true";
             }
         }
+        Logger.getLogger(FuncionarioController.class.getName()).log(Level.INFO, "Erro ao logar");
         return "loginfuncionario.xhtml?faces-redirect=true";
     }
     

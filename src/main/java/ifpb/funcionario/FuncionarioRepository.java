@@ -6,9 +6,12 @@
 package ifpb.funcionario;
 
 import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.enterprise.context.RequestScoped;
+import javax.inject.Inject;
 import javax.persistence.EntityManager;
-import javax.persistence.PersistenceContext;
+import javax.persistence.TypedQuery;
 
 /**
  *
@@ -17,7 +20,7 @@ import javax.persistence.PersistenceContext;
 @RequestScoped
 public class FuncionarioRepository {
     
-    @PersistenceContext()
+    @Inject
     private EntityManager em;
     
     public EntityManager getEm() {
@@ -29,11 +32,27 @@ public class FuncionarioRepository {
     }
     
     public void add(Funcionario fun){
+        Logger.getLogger(FuncionarioRepository.class.getName()).log(Level.INFO, "Percistindo");
+        try {
+            em.getTransaction().begin();
+            em.persist(fun);
+            em.getTransaction().commit();
+        } catch (Exception e) {
+            em.getTransaction().rollback();
+}
         em.persist(fun);
+        Logger.getLogger(FuncionarioRepository.class.getName()).log(Level.INFO, "Percistil");
+        Logger.getLogger(FuncionarioRepository.class.getName()).log(Level.INFO, String.valueOf(fun.getId()));
     }
     
     public void remove(Funcionario fun){
-        em.remove(fun);
+        try {
+            em.getTransaction().begin();
+            em.remove(fun);
+            em.getTransaction().commit();
+        } catch (Exception e) {
+            em.getTransaction().rollback();
+        }
     }
     
     public void update(Funcionario fun){
@@ -41,7 +60,10 @@ public class FuncionarioRepository {
     }
     
     public List<Funcionario> list(){
-        return em.createQuery("SELECT f FROM Funcionario f", Funcionario.class).getResultList();
+        Logger.getLogger(FuncionarioRepository.class.getName()).log(Level.INFO, "Retornando lista");
+        TypedQuery<Funcionario> query = em.createQuery("Select f From Funcionario f", Funcionario.class);
+        Logger.getLogger(FuncionarioRepository.class.getName()).log(Level.INFO, String.valueOf(query.getResultList().size()));
+        return query.getResultList();
     }
     
     public Funcionario buscarPorId(long id) {
@@ -51,8 +73,11 @@ public class FuncionarioRepository {
     public Funcionario buscarPorNome(String nome) {
         List<Funcionario> funcionarios = list();
         Funcionario fun = null;
+        Logger.getLogger(FuncionarioRepository.class.getName()).log(Level.INFO, String.valueOf(funcionarios.size()));
         for (Funcionario funcionario : funcionarios) {
+            Logger.getLogger(FuncionarioRepository.class.getName()).log(Level.INFO, "interando Sobre a lista");
             if (funcionario.getNome() == null ? nome == null : funcionario.getNome().equals(nome)){
+                Logger.getLogger(FuncionarioRepository.class.getName()).log(Level.INFO, "encontrado o funcionario");
                 fun = funcionario;
             }
         }
