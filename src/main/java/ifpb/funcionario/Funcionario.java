@@ -10,6 +10,7 @@ import ifpb.servico.Servico;
 import java.io.Serializable;
 import java.util.List;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
@@ -28,9 +29,9 @@ public class Funcionario implements Serializable{
     private long id;
     private String nome;
     private String senha;
-    @OneToOne
+    @OneToOne(fetch = FetchType.EAGER)
     private Agenda minhaAgenda;
-    @OneToMany
+    @OneToMany(fetch = FetchType.EAGER)
     private List<Servico> servicos;
 
     public Funcionario() {
@@ -82,6 +83,11 @@ public class Funcionario implements Serializable{
 
     public void setServicos(List<Servico> servicos) {
         this.servicos = servicos;
+    }
+
+    @Override
+    public String toString() {
+        return "Funcionario{" + "id=" + id + ", nome=" + nome + ", senha=" + senha + ", minhaAgenda=" + minhaAgenda + ", servicos=" + servicos + '}';
     }
     
 }

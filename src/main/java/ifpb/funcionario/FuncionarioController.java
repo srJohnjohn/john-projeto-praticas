@@ -129,8 +129,6 @@ public class FuncionarioController implements Serializable{
     }
     
     public void cadastrarFuncionario(){
-        Package pkg = FacesContext.class.getPackage();
-                
         Logger.getLogger(FuncionarioController.class.getName()).log(Level.INFO, "Cadastrando");
         fs.add(funcionario);
     }
@@ -165,6 +163,7 @@ public class FuncionarioController implements Serializable{
         this.ate.setFun(logado);
         this.ate.setCliente(cs.buscarPorNome(ate.getCliente().getNome()));
         this.as.add(ate);
+        this.logado.getMinhaAgenda().setAtendimentos(as.atendimentosFuncionario(logado));
         ate = new Atendimento();
         return "homefuncionario.xhtml?faces-redirect=true";
     }
@@ -178,7 +177,9 @@ public class FuncionarioController implements Serializable{
         ha.setDiaSemana(ha.getDia().getDayOfWeek());
         ha.setFun(logado);
         this.has.add(ha);
-        this.logado.getMinhaAgenda();
+        Logger.getLogger(FuncionarioController.class.getName()).log(Level.INFO, logado.toString());
+        Logger.getLogger(FuncionarioController.class.getName()).log(Level.INFO, String.valueOf(logado.getMinhaAgenda().getHorarios().size()));
+        this.logado.getMinhaAgenda().setHorarios(has.horariosFuncionario(logado));
         return "homefuncionario.xhtml?faces-redirect=true";
     }
     
@@ -188,11 +189,12 @@ public class FuncionarioController implements Serializable{
         servico = new Servico();
         ate = new Atendimento();
         ha = new HorarioAtendimento();
-        logado.setMinhaAgenda(new Agenda());
-        logado.getMinhaAgenda().setAtendimentos(as.list());
-        logado.getMinhaAgenda().setHorarios(has.list());
-        
+        Agenda agenda = new Agenda();
+        agenda.setAtendimentos(as.atendimentosFuncionario(logado));
+        agenda.setHorarios(has.horariosFuncionario(logado));
+        logado.setMinhaAgenda(agenda);
         funcionario = new Funcionario();
+        Logger.getLogger(FuncionarioController.class.getName()).log(Level.INFO, logado.getMinhaAgenda().toString());
     }
     
 }
