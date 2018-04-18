@@ -12,11 +12,11 @@
                     <h:form>
                         <h1>Cadastrar Servico</h1>
                         <h:outputText value="Tipo do servico"/>
-                        <h:selectOneMenu value="#{funcionarioController.servico.setTipo(tipo)}">
-                            <f:selectItems value="#{funcionarioController.servico.tipo}"/>
+                        <h:selectOneMenu value="#{funcionarioController.servico.tipo}">
+                            <f:selectItems value="#{funcionarioController.ts}"/>
                         </h:selectOneMenu><br/>
                         <h:outputText value="duaracao do servico"/><h:inputText value="#{funcionarioController.servico.duracao}">
-                            <f:convertDateTime type="localDateTime"/>
+                            <f:converter converterId="conversorTime" />
                         </h:inputText><br/>
                         <h:outputText value="preco do servico"/><h:inputText value="#{funcionarioController.servico.perco}"/><br/>
                         <h:commandButton action="#{funcionarioController.cadastrarServico()}" value="Cadastrar"/>
@@ -24,11 +24,11 @@
                     <h:form>
                         <h1>Marca Servico</h1>
                         <h:outputText value="Serviço desejado"/>
-                        <h:selectOneMenu value="#{funcionarioController.ate.sev}">
-                            <f:selectItems value="#{funcionarioController.logado.servicos}"/>
+                        <h:selectOneMenu value="#{funcionarioController.ate.sev.tipo}">
+                            <f:selectItems value="#{funcionarioController.ts}"/>
                         </h:selectOneMenu><br/>
                         <h:outputText id="inputData" value="dia do Atendimento"/><h:inputText value="#{funcionarioController.ate.dia}">
-                            <f:convertDateTime type="localDate" pattern="dd.MM.uu"/>
+                            <f:convertDateTime type="localDate" pattern="dd/MM/yyyy"/>
                         </h:inputText><br/>
                         <h:outputText value="inicio do Atendimento"/><h:inputText value="#{funcionarioController.ate.inicio}">
                             <f:convertDateTime type="localDateTime"/>
@@ -40,10 +40,10 @@
                         <h:form>
                             <h:outputText value="#{atendimento.sev.tipo}"/>
                             <h:outputText value="#{atendimento.sev.duracao}">
-                                <f:convertDateTime type="localDateTime"/>
+                                <f:converter converterId="conversorTime" />
                             </h:outputText>
                             <h:outputText id="inputTime" value="#{atendimento.inicio}">
-                                <f:convertDateTime type="localDateTime"/>
+                                <f:converter converterId="conversorTime" />
                             </h:outputText>
                             <h:outputText value="#{atendimento.cliente.nome}"/>
                             <h:commandButton action="#{funcionarioController.desmarcar(atendimento.id)}" value="Desmarcar Atendimento"/>
@@ -72,10 +72,10 @@
                             <f:convertDateTime type="localDate" pattern="dd/MM/yyyy"/>
                         </h:outputText>
                         <h:outputText value="#{meusHorarios.chegada}">
-                            <f:convertDateTime type="localDateTime" pattern="hh:mm"/>
+                            <f:converter converterId="conversorTime" />
                         </h:outputText>
                         <h:outputText value="#{meusHorarios.saida}">
-                            <f:convertDateTime type="localDateTime" pattern="hh:mm"/>
+                            <f:converter converterId="conversorTime" />
                         </h:outputText>
                     </h:dataTable>
                 </section>

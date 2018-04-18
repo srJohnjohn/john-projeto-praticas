@@ -8,6 +8,8 @@ package ifpb.servico;
 import java.io.Serializable;
 import java.time.LocalTime;
 import javax.persistence.Entity;
+import javax.persistence.EnumType;
+import javax.persistence.Enumerated;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 
@@ -23,6 +25,7 @@ public class Servico implements Serializable{
     private long id;
     private LocalTime duracao;
     private long perco;
+    @Enumerated(EnumType.STRING)
     private TipoServico tipo;
 
     public Servico() {

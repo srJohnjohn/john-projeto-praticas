@@ -13,7 +13,10 @@ import ifpb.horarioatendimento.HorarioAtendimento;
 import ifpb.servico.Servico;
 import ifpb.servico.ServicoService;
 import ifpb.horarioatendimento.HorarioAtendimentoService;
+import ifpb.servico.TipoServico;
 import java.io.Serializable;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.annotation.PostConstruct;
@@ -47,6 +50,16 @@ public class FuncionarioController implements Serializable{
     private Servico servico;
     private Atendimento ate;
     private HorarioAtendimento ha;
+    private TipoServico[] ts;
+
+    public TipoServico[] getTs() {
+        return TipoServico.values();
+    }
+
+    public void setTs(TipoServico[] ts) {
+        this.ts = TipoServico.values();
+    }
+    
 
     public HorarioAtendimentoService getHas() {
         return has;
@@ -131,6 +144,7 @@ public class FuncionarioController implements Serializable{
     public void cadastrarFuncionario(){
         Logger.getLogger(FuncionarioController.class.getName()).log(Level.INFO, "Cadastrando");
         fs.add(funcionario);
+        this.funcionario = new Funcionario();
     }
     
     public String logar(){
@@ -139,12 +153,19 @@ public class FuncionarioController implements Serializable{
             Logger.getLogger(FuncionarioController.class.getName()).log(Level.INFO, "Conseguil buscar no banco");
             if((this.logado != null) && (this.funcionario.getSenha().equals(this.logado.getSenha()))){
                 Logger.getLogger(FuncionarioController.class.getName()).log(Level.INFO, "Passo do utimo if");
+                
+                Agenda agenda = new Agenda();
+                agenda.setAtendimentos(as.atendimentosFuncionario(logado));
+                agenda.setHorarios(has.horariosFuncionario(logado));
+                logado.setMinhaAgenda(agenda);
+                
                 HttpSession sessao = (HttpSession) FacesContext.getCurrentInstance().getExternalContext().getSession(true);
                 sessao.setAttribute("funcionario", logado);
                 Logger.getLogger(FuncionarioController.class.getName()).log(Level.INFO, "logado");
                 return "homefuncionario.xhtml?faces-redirect=true";
             }
         }
+        this.logado = null;
         Logger.getLogger(FuncionarioController.class.getName()).log(Level.INFO, "Erro ao logar");
         return "loginfuncionario.xhtml?faces-redirect=true";
     }
@@ -156,7 +177,10 @@ public class FuncionarioController implements Serializable{
     }
     
     public void cadastrarServico(){
+        Logger.getLogger(FuncionarioController.class.getName()).log(Level.INFO, servico.getTipo().toString());
         ss.add(servico);
+        logado.setServicos(ss.list());
+        servico = new Servico();
     }
     
     public String Agendar(){
@@ -180,21 +204,16 @@ public class FuncionarioController implements Serializable{
         Logger.getLogger(FuncionarioController.class.getName()).log(Level.INFO, logado.toString());
         Logger.getLogger(FuncionarioController.class.getName()).log(Level.INFO, String.valueOf(logado.getMinhaAgenda().getHorarios().size()));
         this.logado.getMinhaAgenda().setHorarios(has.horariosFuncionario(logado));
+        this.ha = new HorarioAtendimento();
         return "homefuncionario.xhtml?faces-redirect=true";
     }
     
     @PostConstruct
     public void inicio(){
-        logado = new Funcionario();
         servico = new Servico();
         ate = new Atendimento();
         ha = new HorarioAtendimento();
-        Agenda agenda = new Agenda();
-        agenda.setAtendimentos(as.atendimentosFuncionario(logado));
-        agenda.setHorarios(has.horariosFuncionario(logado));
-        logado.setMinhaAgenda(agenda);
         funcionario = new Funcionario();
-        Logger.getLogger(FuncionarioController.class.getName()).log(Level.INFO, logado.getMinhaAgenda().toString());
     }
     
 }
